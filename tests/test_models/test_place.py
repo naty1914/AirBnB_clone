@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""A MOdule that defines Unit tests for the city module"""
+"""A Module that defines Unit tests for the place module"""
 
 import unittest
 import os

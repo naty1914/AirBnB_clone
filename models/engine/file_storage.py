@@ -36,13 +36,15 @@ class FileStorage():
 
     def reload(self):
         """Reloads the deserialized the Json file"""
-        my_classes = {"BaseModel": BaseModel,
-                   "User": User,
-                   "State": State,
-                   "City": City,
-                   "Amenity": Amenity,
-                   "Place": Place,
-                   "Review": Review}
+        my_classes = {
+                     "BaseModel": BaseModel,
+                     "User": User,
+                     "State": State,
+                     "City": City,
+                     "Amenity": Amenity,
+                     "Place": Place,
+                     "Review": Review
+                     }
 
         if not os.path.exists(FileStorage.__file_path):
             return
