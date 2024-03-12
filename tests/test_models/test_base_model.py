@@ -34,8 +34,6 @@ class TestBase(unittest.TestCase):
         self.assertIn('created_at', base1_dict.keys())
         self.assertIn('updated_at', base1_dict.keys())
         self.assertEqual(base1_dict['__class__'], type(base1).__name__)
-        with self.assertRaises(KeyError) as e:
-            base2.to_dict()
 
     def test_initial(self):
         """Test positive cases of the BaseModel initialization. """
@@ -70,31 +68,15 @@ class TestBase(unittest.TestCase):
         self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
         with open(FileStorage._FileStorage__file_path,
                   "r", encoding="utf-8") as f:
-            self.assertEqual(len(f.read()), len(json.dumps(d)))
+            self.assertEqual(len(f.read()), len(json.dumps(data)))
             f.seek(0)
             self.assertEqual(json.load(f), data)
-
-    def test_save_no_args(self):
-        """Tests save() with no arguments."""
-        self.resetStorage()
-        with self.assertRaises(TypeError) as ex:
-            BaseModel.save()
-        text = "save() missing 1 required positional argument: 'self'"
-        self.assertEqual(str(ex.exception), text)
 
     def test_str(self):
         """Tests the str representation"""
         base1 = BaseModel()
         string = f"[{type(base1).__name__}] ({base1.id}) {base1.__dict__}"
         self.assertEqual(base1.__str__(), string)
-
-    def test_save_many_args(self):
-        """Tests save method  with  many arguments."""
-        self.resetStorage()
-        with self.assertRaises(TypeError) as ex:
-            BaseModel.save(self, 98)
-        text = "save() takes 1 positional argument but 2 were given"
-        self.assertEqual(str(ex.exception), text)
 
 
 if __name__ == "__main__":

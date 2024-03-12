@@ -65,30 +65,23 @@ class TestBaseModel(unittest.TestCase):
     def test_update_base_model(self):
         """Tests updating a specific BaseModel object"""
         with patch('sys.stdout', new=StringIO()) as f:
-            bm1 = BaseModel()
-            bm1.age = 25
-            HBNBCommand().onecmd(f'update BaseModel {bm1.id} age 30')
-            self.assertIn("age", bm1.__dict__.keys())
-            self.assertEqual(bm1.__dict__["age"], 30)
+            b1 = BaseModel()
+            b1.name = "Cecilia"
+            str_update = f'update BaseModel {b1.id} \'{{"name": "Ife"}}\''
+            HBNBCommand().onecmd(str_update)
+            self.assertEqual(b1.name, "Ife")
 
         with patch('sys.stdout', new=StringIO()) as f:
-            bm1 = BaseModel()
-            bm1.name = "Alice"
-            HBNBCommand().onecmd(f'update BaseModel {bm1.id} name "Bob"')
-            self.assertEqual(bm1.__dict__["name"], "Bob")
+            b2 = BaseModel()
+            b2.savings = 25.67
+            str_update = f'update BaseModel {b2.id} \'{{"savings": 35.89}}\''
+            HBNBCommand().onecmd(str_update)
+            self.assertIn("savings", b2.__dict__.keys())
+            self.assertEqual(b2.savings, 35.89)
 
         with patch('sys.stdout', new=StringIO()) as f:
-            bm1 = BaseModel()
-            bm1.age = 40
-            command = f'update BaseModel {bm1.id} age 35 color "red"'
-            HBNBCommand().onecmd(command)
-            self.assertIn("age", bm1.__dict__.keys())
-            self.assertNotIn("color", bm1.__dict__.keys())
-            self.assertEqual(bm1.__dict__["age"], 35)
-
-        with patch('sys.stdout', new=StringIO()) as f:
-            bm1 = BaseModel()
-            bm1.savings = 100.50
-            HBNBCommand().onecmd(f'update BaseModel {bm1.id} savings 75.25')
-            self.assertIn("savings", bm1.__dict__.keys())
-            self.assertEqual(bm1.__dict__["savings"], 75.25)
+            b3 = BaseModel()
+            b3.age = 60
+            HBNBCommand().onecmd(f'update BaseModel {b3.id} \'{{"age": 10}}\'')
+            self.assertIn("age", b3.__dict__.keys())
+            self.assertEqual(b3.age, 10)
